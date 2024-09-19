@@ -2,6 +2,10 @@ package algo
 
 fun main() {
     // Tu peux tester la fonction en l'appelant ici.
+    println(racineCarre(9.0))
+    println(racineCarre(10.0))
+    println(racineCarre(49.0))
+    println(racineCarre(50.0))
 }
 
 /**
@@ -29,5 +33,19 @@ fun racineCarre(x: Double): Double {
           fin du pour sur les fraction
           renvoyer resultat
      */
-    return 0.0
+    var resultat: Double = 0.0
+    while ((resultat + 1) * (resultat + 1) <= x) {
+        resultat++
+    }
+    val fractions: Array<Double> = arrayOf(0.1, 0.01, 0.001, 0.0001)
+    for (fraction: Double in fractions) {
+        val base: Double = resultat
+        for (chiffre: Int in 0..9) {
+            val test: Double = base + (fraction * chiffre)
+            if (test * test <= x) {
+                resultat = test
+            }
+        }
+    }
+    return resultat
 }
