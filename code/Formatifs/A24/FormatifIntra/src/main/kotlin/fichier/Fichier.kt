@@ -1,16 +1,20 @@
 package fichier
 
 import java.io.File
+import kotlin.io.path.*
 
 fun main() {
     // Tu peux tester tes fonctions en les appellants ici.
+    lire()
+    ecrire(listOf("message.txt", "out.txt"))
 }
 
 /**
  * (1 point) Affiche dans la console le contenu du fichier message.txt qui se trouve dans le projet de départ.
  */
 fun lire() {
-
+    val lignes: List<String> = Path("message.txt").readLines()
+    lignes.forEach { println(it) }
 }
 
 /**
@@ -22,5 +26,17 @@ fun lire() {
  * Si tout s'est bien passé, on retourne la valeur 1.
  */
 fun ecrire(args: List<String>): Int {
+    if (args.size != 2) {
+        println("Il n'y a pas 2 arguments.")
+        return -1
+    }
+
+    try {
+        val texte: String = Path(args[0]).readText()
+        Path(args[1]).createFile().writeText(texte)
+    } catch (e: Exception) {
+        println("Erreur lors de l'écriture du fichier.")
+        return -1
+    }
     return 1
 }
