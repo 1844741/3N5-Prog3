@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element
 
 fun main() {
     // Tu peux tester la fonction en l'appelant ici.
+    jsoup(listOf("bonjour", "jaime les fraises", "danger"))
 }
 
 /**
@@ -39,5 +40,19 @@ fun main() {
  * </body>
  */
 fun jsoup(mots: List<String>): Document? {
-    return null
+    val doc: Document
+    try {
+        doc = Jsoup.connect("https://info.cegepmontpetit.ca/3N5-Prog3/intraA24-2.html").get()
+    } catch (e: Exception) {
+        println("Erreur de connection")
+        return null
+    }
+
+    for (mot in mots) {
+        doc.body().append("<div>$mot</div>")
+    }
+
+    print(doc.body())
+
+    return doc
 }
